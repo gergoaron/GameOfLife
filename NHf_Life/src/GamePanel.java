@@ -13,8 +13,8 @@ public class GamePanel extends JPanel {
     int yPanel = 400;
     int cellSize = 10;
 
-    ArrayList<Integer> B = new ArrayList<Integer>();
-    ArrayList<Integer> S = new ArrayList<Integer>();
+    ArrayList<Integer> B = new ArrayList<Integer>(9);
+    ArrayList<Integer> S = new ArrayList<Integer>(9);
 
     JTable GameTable = new JTable(yPanel / cellSize , xPanel / cellSize);
 
@@ -140,12 +140,24 @@ public class GamePanel extends JPanel {
             Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
             if(lifeGrid[row][column]) {
-                c.setBackground(Color.GRAY);
+                c.setBackground(Color.gray);
             }
             else
                 c.setBackground(Color.BLACK);
             return c;
         }
+    }
 
+    public void clear() {
+        lifeGrid = new boolean[yPanel / cellSize][xPanel / cellSize];
+        GameTable.repaint();
+    }
+
+    public void setBS(ArrayList<Integer> born, ArrayList<Integer> survives) {
+        B.clear();
+        B.addAll(born);
+
+        S.clear();
+        S.addAll(survives);
     }
 }
